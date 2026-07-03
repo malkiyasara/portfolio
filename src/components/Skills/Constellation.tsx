@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback, useRef } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { Star } from "lucide-react";
 import {
@@ -17,7 +17,6 @@ import {
   SiJest,
 } from "react-icons/si";
 
-type Skill = { name: string };
 type StarNode = { x: number; y: number; skill: string };
 type SmallStar = { x: number; y: number; size: number; delay: number };
 
@@ -143,20 +142,6 @@ export const Constellation: React.FC = () => {
   const [autoPopup, setAutoPopup] = useState<string | null>(null);
   const containerRef = useRef<HTMLDivElement>(null);
   const isInView = useInView(containerRef, { once: false, amount: 0.2 });
-
-  const runSequence = useCallback(async () => {
-    while (true) {
-      for (const node of constellationStars) {
-        setAutoPopup(node.skill);
-        await new Promise((resolve) => setTimeout(resolve, 800));
-
-        setAutoPopup(null);
-        await new Promise((resolve) => setTimeout(resolve, 250));
-      }
-
-      await new Promise((resolve) => setTimeout(resolve, 2000));
-    }
-  }, []);
 
   useEffect(() => {
     if (!isInView) return;
