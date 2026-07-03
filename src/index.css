@@ -1,0 +1,259 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme {
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-surface: var(--surface);
+  --color-glow: var(--glow);
+  --color-purple-dark: var(--purple-dark);
+  --color-blue-space: var(--blue-space);
+
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-sans: "Inter", system-ui, sans-serif;
+  --animate-pulse-subtle: pulse-subtle ease-in-out infinite;
+  --animate-meteor: meteor linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+
+  @keyframes pulse-subtle {
+    0%,
+    100% {
+      opacity: 0.3;
+      transform: scale(0.8);
+    }
+    50% {
+      opacity: 1;
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes meteor {
+    0% {
+      transform: rotate(-45deg) translateX(0) scale(1);
+      opacity: 1;
+    }
+    70% {
+      opacity: 1;
+    }
+    100% {
+      transform: rotate(-45deg) translateX(-1000px) scale(0);
+      opacity: 0;
+    }
+  }
+
+  @keyframes float {
+    0%,
+    100% {
+      transform: translateY(0px);
+    }
+    50% {
+      transform: translateY(-20px);
+    }
+  }
+}
+
+:root {
+  --radius: 0.875rem;
+
+  --background: oklch(0.12 0.04 285);
+  --surface: oklch(0.16 0.06 250);
+  --card: oklch(0.15 0.05 270);
+  --card-foreground: oklch(0.98 0.005 240);
+
+  --purple-dark: oklch(0.18 0.09 295);
+  --blue-space: oklch(0.15 0.07 245);
+
+  --foreground: oklch(0.98 0.005 240);
+  --popover: oklch(0.16 0.06 250);
+  --popover-foreground: oklch(0.98 0.005 240);
+
+  --primary: oklch(0.68 0.19 290);
+  --primary-foreground: oklch(0.98 0.005 240);
+  --secondary: oklch(0.72 0.15 240);
+  --secondary-foreground: oklch(0.12 0.04 285);
+
+  --muted: oklch(0.22 0.04 270);
+  --muted-foreground: oklch(0.72 0.03 250);
+  --accent: oklch(0.68 0.19 290);
+  --accent-foreground: oklch(0.98 0.005 240);
+
+  --destructive: oklch(0.65 0.22 25);
+  --destructive-foreground: oklch(0.98 0 0);
+  --border: oklch(1 0 0 / 8%);
+  --input: oklch(1 0 0 / 10%);
+  --ring: oklch(0.68 0.19 290);
+  --glow: oklch(0.68 0.19 290 / 35%);
+}
+
+.light {
+  --background: oklch(0.99 0.005 250);
+  --foreground: oklch(0.2 0.04 270);
+  --surface: oklch(0.96 0.01 250);
+  --card: oklch(1 0 0);
+  --card-foreground: oklch(0.2 0.04 270);
+  --popover: oklch(1 0 0);
+  --popover-foreground: oklch(0.2 0.04 270);
+  --primary: oklch(0.55 0.18 290);
+  --primary-foreground: oklch(0.99 0 0);
+  --secondary: oklch(0.6 0.15 240);
+  --secondary-foreground: oklch(0.2 0.04 270);
+  --muted: oklch(0.95 0.01 250);
+  --muted-foreground: oklch(0.45 0.03 260);
+  --accent: oklch(0.6 0.15 240);
+  --accent-foreground: oklch(0.2 0.04 270);
+  --border: oklch(0.2 0.04 270 / 12%);
+  --input: oklch(0.2 0.04 270 / 10%);
+  --ring: oklch(0.55 0.18 265);
+  --glow: oklch(0.55 0.18 265 / 25%);
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-foreground);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    overflow-x: hidden;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
+
+  ::selection {
+    background: var(--color-primary);
+    color: var(--color-primary-foreground);
+  }
+
+  :target {
+    scroll-margin-top: 5rem;
+  }
+}
+
+@layer utilities {
+  .glass {
+    background: color-mix(in oklab, var(--color-surface) 50%, transparent);
+    backdrop-filter: blur(20px) saturate(140%);
+    -webkit-backdrop-filter: blur(20px) saturate(140%);
+    border: 1px solid color-mix(in oklab, var(--color-primary) 15%, transparent);
+  }
+
+  .glass-strong {
+    background: color-mix(in oklab, var(--color-surface) 75%, transparent);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid
+      color-mix(in oklab, var(--color-secondary) 18%, transparent);
+  }
+
+  .text-gradient {
+    background: linear-gradient(
+      135deg,
+      var(--color-secondary),
+      var(--color-primary)
+    );
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .bg-cosmic-gradient {
+    background: linear-gradient(
+      140deg,
+      var(--color-purple-dark) 0%,
+      var(--color-background) 50%,
+      var(--color-blue-space) 100%
+    );
+  }
+
+  .glow-primary {
+    box-shadow: 0 0 40px var(--color-glow);
+  }
+
+  .ring-glow:hover {
+    box-shadow: 0 8px 40px var(--color-glow);
+  }
+
+  .grid-cosmic {
+    background-image:
+      radial-gradient(
+        circle at 15% 25%,
+        color-mix(in oklab, var(--color-primary) 22%, transparent),
+        transparent 45%
+      ),
+      radial-gradient(
+        circle at 85% 75%,
+        color-mix(in oklab, var(--color-secondary) 18%, transparent),
+        transparent 50%
+      );
+  }
+
+  .animate-shimmer {
+    --animate-shimmer: shimmer 2.5s infinite;
+  }
+
+  @keyframes shimmer {
+    0% {
+      background-position: 0% 0%;
+    }
+    100% {
+      background-position: 200% 0%;
+    }
+  }
+}
+
+@font-face {
+  font-family: "Space Grotesk";
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/spacegrotesk/v16/V8mDoQDjQSkFtoMM3T6r8E7mF71Q-gOoraIAEj7aUUM.woff2")
+    format("woff2");
+}
+
+@font-face {
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 300 700;
+  font-display: swap;
+  src: url("https://fonts.gstatic.com/s/inter/v13/UcCO3FwrK3iLTeHuS_fvQtMwCp50KnMa1ZL7.woff2")
+    format("woff2");
+}
