@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, memo } from "react";
 import { Cloud, fetchSimpleIcons, renderSimpleIcon } from "react-icon-cloud";
 
 const cloudProps: any = {
@@ -27,7 +27,7 @@ const cloudProps: any = {
   },
 };
 
-export default function IconCloud({ iconSlugs }: { iconSlugs: string[] }) {
+function IconCloud({ iconSlugs }: { iconSlugs: string[] }) {
   const [data, setData] = useState<any>(null);
 
   useEffect(() => {
@@ -68,3 +68,5 @@ export default function IconCloud({ iconSlugs }: { iconSlugs: string[] }) {
     </Cloud>
   );
 }
+
+export default memo(IconCloud);

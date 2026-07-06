@@ -46,6 +46,11 @@ export const Navbar: React.FC = () => {
           href="#home"
           className="flex items-center gap-2.5 text-xl font-bold font-display text-blue-200 hover:text-white transition-colors group"
         >
+          <img
+            src="/portfolioback.png"
+            alt="Malki Yasara Logo"
+            className="h-8 w-auto object-contain"
+          />
           <span className="tracking-wide bg-gradient-to-r from-blue-200 to-blue-400 bg-clip-text text-transparent">
             Malki Yasara
           </span>
@@ -123,14 +128,21 @@ export const Navbar: React.FC = () => {
         <div className="md:hidden mt-2 mx-auto max-w-5xl p-4 rounded-xl backdrop-blur-xl bg-[#0b1528]/95 border border-blue-500/15 flex flex-col gap-3 shadow-xl">
           {links.map((link) => {
             const IconComponent = link.icon;
+            const isActive = activeSection === link.href;
             return (
               <a
                 key={link.label}
                 href={link.href}
                 onClick={() => setIsOpen(false)}
-                className="flex items-center gap-3 px-4 py-2.5 text-sm font-medium text-gray-300 hover:text-blue-400 hover:bg-blue-500/5 rounded-lg transition-all"
+                className={`flex items-center gap-3 px-4 py-2.5 text-sm font-medium rounded-lg transition-all ${
+                  isActive
+                    ? "text-blue-300 bg-blue-500/10 border border-blue-500/20"
+                    : "text-gray-300 hover:text-blue-400 hover:bg-blue-500/5 border border-transparent"
+                }`}
               >
-                <IconComponent className="w-4 h-4 text-gray-400" />
+                <IconComponent
+                  className={`w-4 h-4 ${isActive ? "text-blue-400" : "text-gray-500"}`}
+                />
                 {link.label}
               </a>
             );

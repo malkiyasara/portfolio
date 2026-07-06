@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import IconCloud from "./IconCloud";
@@ -199,6 +199,7 @@ const SkillCard = ({ title, items }: SkillCardProps) => (
 
 export const Skills: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
     if (!containerRef.current) return;
@@ -218,6 +219,16 @@ export const Skills: React.FC = () => {
     });
   };
 
+  const handleScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollLeft, scrollWidth, clientWidth } = e.currentTarget;
+    if (scrollWidth === clientWidth) return;
+    const scrollRatio = scrollLeft / (scrollWidth - clientWidth);
+    let index = Math.round(scrollRatio * 4);
+    if (index < 0) index = 0;
+    if (index > 4) index = 4;
+    setActiveIndex(index);
+  };
+
   return (
     <section
       id="skills"
@@ -225,10 +236,6 @@ export const Skills: React.FC = () => {
       onPointerMove={handlePointerMove}
       className="relative w-full max-w-7xl mx-auto px-6 md:px-12 pt-8 pb-24 border-t border-white/5 scroll-mt-16"
     >
-      <div className="absolute inset-x-0 bottom-0 h-[365px] overflow-hidden z-99 pointer-events-none opacity-60">
-        <Constellation />
-      </div>
-
       <div className="absolute top-1/4 left-1/4 -z-10 w-72 h-72 bg-blue-500/10 rounded-full blur-[120px] pointer-events-none" />
 
       <div className="relative z-0">
@@ -248,28 +255,74 @@ export const Skills: React.FC = () => {
           <div className="h-1 w-16 bg-gradient-to-r from-blue-200 to-blue-400 mx-auto rounded-full"></div>
         </motion.div>
 
-        <div className="flex flex-col xl:flex-row items-center justify-center gap-10 -mt-10">
-          <div className="flex flex-col gap-6">
+        <div className="flex flex-col xl:flex-row items-center justify-center gap-10 mt-2 xl:mt-0 xl:-mt-10">
+          {/* DESKTOP CARDS LEFT (Hidden on Mobile) */}
+          <div className="hidden xl:flex xl:flex-col justify-center gap-6 xl:w-auto">
             <SkillCard title="Frontend" items={skillGroups.Frontend} />
             <SkillCard title="Backend" items={skillGroups.Backend} />
           </div>
 
+          {/* SKILL BALL - First on Mobile, Middle on Desktop */}
           <motion.div
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: false }}
             transition={{ duration: 0.8, delay: 0.2 }}
-            className="relative w-full max-w-[430px] aspect-square flex items-center justify-center -translate-y-30"
+            className="order-first xl:order-none relative w-full max-w-[430px] aspect-square flex items-center justify-center my-4 xl:my-0 xl:-translate-y-30"
           >
             <IconCloud iconSlugs={slugs} />
           </motion.div>
 
-          <div className="flex flex-col gap-6">
+          {/* DESKTOP CARDS RIGHT (Hidden on Mobile) */}
+          <div className="hidden xl:flex xl:flex-col justify-center gap-6 xl:w-auto">
             <SkillCard title="UI / UX" items={skillGroups["UI / UX"]} />
             <SkillCard title="Cloud" items={skillGroups.Cloud} />
             <SkillCard title="Tools" items={skillGroups.Tools} />
           </div>
+
+          {/* MOBILE SWIPEABLE CARDS (Hidden on Desktop) */}
+          <div className="xl:hidden w-full flex flex-col items-center">
+            <div
+              onScroll={handleScroll}
+              className="w-[calc(100%+3rem)] md:w-[calc(100%+6rem)] -mx-6 md:-mx-12 px-6 md:px-12 overflow-x-auto flex gap-6 snap-x snap-mandatory pt-4 pb-2 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+            >
+              <div className="snap-center shrink-0">
+                <SkillCard title="Frontend" items={skillGroups.Frontend} />
+              </div>
+              <div className="snap-center shrink-0">
+                <SkillCard title="Backend" items={skillGroups.Backend} />
+              </div>
+              <div className="snap-center shrink-0">
+                <SkillCard title="UI / UX" items={skillGroups["UI / UX"]} />
+              </div>
+              <div className="snap-center shrink-0">
+                <SkillCard title="Cloud" items={skillGroups.Cloud} />
+              </div>
+              <div className="snap-center shrink-0">
+                <SkillCard title="Tools" items={skillGroups.Tools} />
+              </div>
+            </div>
+
+            {/* Pagination Dots */}
+            <div className="flex justify-center gap-2 mt-4 mb-4">
+              {[0, 1, 2, 3, 4].map((i) => (
+                <div
+                  key={i}
+                  className={`h-1.5 rounded-full transition-all duration-300 ${
+                    activeIndex === i
+                      ? "w-6 bg-blue-400"
+                      : "w-1.5 bg-blue-500/30"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
         </div>
+      </div>
+
+      {/* CONSTELLATION - Absolute at bottom for Desktop, Relative at bottom for Mobile */}
+      <div className="xl:absolute xl:inset-x-0 xl:bottom-0 relative w-full h-[365px] overflow-hidden pointer-events-none opacity-60 z-99 mt-12 xl:mt-0 xl:translate-y-0">
+        <Constellation />
       </div>
     </section>
   );

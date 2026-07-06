@@ -45,7 +45,7 @@ const constellationStars: StarNode[] = [
   { x: 340, y: 100, skill: "Express" },
   { x: 480, y: 200, skill: "MongoDB" },
   { x: 430, y: 100, skill: "MySQL" },
-  { x: 580, y: 90, skill: "Tailwind" },
+  { x: 580, y: 100, skill: "Tailwind" },
   { x: 600, y: 220, skill: "Docker" },
   { x: 700, y: 270, skill: "Jest" },
   { x: 800, y: 320, skill: "Postman" },
@@ -313,7 +313,7 @@ export const Constellation: React.FC = () => {
                 x2={s2.x}
                 y2={s2.y}
                 stroke="#38BDF8"
-                strokeWidth="0.6"
+                strokeWidth="1.2"
                 opacity="0.25"
                 initial={{ opacity: 0, pathLength: 0 }}
                 animate={isInView ? { opacity: 0.25, pathLength: 1 } : {}}
@@ -328,7 +328,7 @@ export const Constellation: React.FC = () => {
               key={"small-mobile" + i}
               cx={star.x}
               cy={star.y}
-              r={star.size * 0.8}
+              r={star.size * 1.6}
               fill="white"
               initial={{ opacity: 0, scale: 0 }}
               animate={
@@ -355,7 +355,7 @@ export const Constellation: React.FC = () => {
                 x2={s2.x}
                 y2={s2.y}
                 stroke="#60A5FA"
-                strokeWidth="1"
+                strokeWidth="2"
                 strokeLinecap="round"
                 style={{ pointerEvents: "none" }}
                 initial={{ opacity: 0, pathLength: 0 }}
@@ -375,7 +375,7 @@ export const Constellation: React.FC = () => {
               animate={
                 isInView
                   ? {
-                      scale: 0.9,
+                      scale: 1,
                       opacity: 1,
                     }
                   : {}
@@ -389,23 +389,23 @@ export const Constellation: React.FC = () => {
                 cursor: "pointer",
               }}
             >
-              <circle cx={node.x} cy={node.y} r="14" fill="transparent" />
+              <circle cx={node.x} cy={node.y} r="20" fill="transparent" />
 
               {/* Star */}
 
               <foreignObject
-                x={node.x - 12}
-                y={node.y - 12}
-                width="24"
-                height="24"
+                x={node.x - 16}
+                y={node.y - 16}
+                width="32"
+                height="32"
               >
                 <Star
-                  size={22}
-                  strokeWidth={2.2}
+                  size={32}
+                  strokeWidth={2.4}
                   className="
                     fill-white
                     text-white
-                    drop-shadow-[0_0_12px_white]
+                    drop-shadow-[0_0_16px_white]
                     "
                 />
               </foreignObject>
@@ -429,9 +429,9 @@ export const Constellation: React.FC = () => {
                     animate={{
                       opacity: 1,
 
-                      scale: 1,
+                      scale: 1.45,
 
-                      y: -50,
+                      y: -65,
                     }}
                     exit={{
                       opacity: 0,

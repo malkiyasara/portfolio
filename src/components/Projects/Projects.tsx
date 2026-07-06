@@ -20,6 +20,18 @@ const containerVariants: Variants = {
 export const Projects: React.FC = () => {
   const containerRef = useRef<HTMLDivElement>(null);
   const [currentPage, setCurrentPage] = useState(0);
+  const [activeMobileIndex, setActiveMobileIndex] = useState(0);
+
+  const handleMobileScroll = (e: React.UIEvent<HTMLDivElement>) => {
+    const { scrollLeft, scrollWidth, clientWidth } = e.currentTarget;
+    if (scrollWidth === clientWidth) return;
+    const scrollRatio = scrollLeft / (scrollWidth - clientWidth);
+    const maxIndex = projectData.length - 1;
+    let index = Math.round(scrollRatio * maxIndex);
+    if (index < 0) index = 0;
+    if (index > maxIndex) index = maxIndex;
+    setActiveMobileIndex(index);
+  };
 
   const itemsPerPage = 3;
   const totalPages = Math.ceil(projectData.length / itemsPerPage);
@@ -79,7 +91,8 @@ export const Projects: React.FC = () => {
         <div className="h-1 w-16 bg-gradient-to-r from-blue-200 to-blue-400 mx-auto rounded-full"></div>
       </div>
 
-      <div className="relative group/projects">
+      {/* DESKTOP LAYOUT */}
+      <div className="hidden md:block relative group/projects">
         <button
           onClick={() => setCurrentPage((p) => Math.max(0, p - 1))}
           disabled={currentPage === 0}
@@ -295,7 +308,7 @@ export const Projects: React.FC = () => {
         </motion.div>
       </div>
 
-      <div className="flex justify-center gap-2 mt-12">
+      <div className="hidden md:flex justify-center gap-2 mt-12">
         {Array.from({ length: totalPages }).map((_, idx) => (
           <button
             key={idx}
@@ -308,6 +321,97 @@ export const Projects: React.FC = () => {
             }`}
           />
         ))}
+      </div>
+      {/* MOBILE SWIPEABLE CARDS */}
+      <div className="md:hidden w-full flex flex-col items-center mt-6">
+        <div
+          onScroll={handleMobileScroll}
+          className="w-[calc(100%+3rem)] -mx-6 px-6 overflow-x-auto flex gap-6 snap-x snap-mandatory pt-4 pb-6 [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
+        >
+          {projectData.map((project, index) => (
+            <div
+              key={`mobile-${project.name}`}
+              className="snap-center shrink-0 w-[85vw] max-w-[320px] h-full flex flex-col"
+            >
+              <div
+                className="
+                  interactive-glow-card
+                  relative
+                  flex-grow
+                  overflow-hidden
+                  rounded-2xl
+                  bg-white/[0.08]
+                  p-[1px]
+                  shadow-xl
+                "
+              >
+                <div className="relative z-10 flex h-full flex-col rounded-[15px] bg-[#0d1224] p-6 text-left">
+                  <div className="relative mb-6 h-48 overflow-hidden rounded-xl border border-white/5 bg-blue-500/5 shrink-0">
+                    {project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.name}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div className="flex h-full w-full items-center justify-center">
+                        <span className="text-4xl font-bold text-white/10">
+                          {String(index + 1).padStart(2, "0")}
+                        </span>
+                      </div>
+                    )}
+                  </div>
+
+                  <div className="flex-grow">
+                    <h3 className="mb-3 text-xl font-bold text-white">
+                      {project.name}
+                    </h3>
+                    <p className="mb-6 text-sm text-gray-400 leading-7">
+                      {project.description}
+                    </p>
+                  </div>
+
+                  <div className="mt-auto border-t border-white/10 pt-4 shrink-0">
+                    <div className="mb-6 flex flex-wrap gap-2">
+                      {project.technologies.map((tech) => (
+                        <span
+                          key={tech}
+                          className="rounded border border-blue-500/20 bg-blue-500/10 px-2 py-1 text-[10px] uppercase tracking-wider text-blue-300"
+                        >
+                          {tech}
+                        </span>
+                      ))}
+                    </div>
+
+                    <a
+                      href={project.githubLink}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center gap-2 text-xs font-mono text-gray-400 transition-colors hover:text-white"
+                    >
+                      <Code2 className="h-4 w-4" />
+                      Code
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+
+        {/* DOTS PAGINATION */}
+        <div className="flex justify-center flex-wrap gap-2 mt-2 mb-4 px-4 w-full">
+          {projectData.map((_, idx) => (
+            <div
+              key={idx}
+              className={`h-1.5 rounded-full transition-all duration-300 ${
+                activeMobileIndex === idx
+                  ? "w-6 bg-blue-400"
+                  : "w-1.5 bg-blue-500/30"
+              }`}
+            />
+          ))}
+        </div>
       </div>
     </section>
   );

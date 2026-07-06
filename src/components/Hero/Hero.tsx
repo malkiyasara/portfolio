@@ -100,7 +100,7 @@ export const Hero: React.FC<HeroProps> = ({ isDecrypted, setIsDecrypted }) => {
           </p>
         </div>
 
-        <div className="lg:col-span-7 flex items-center justify-center w-full z-30 relative overflow-visible">
+        <div className="lg:col-span-7 hidden lg:flex items-center justify-center w-full z-30 relative overflow-visible">
           <div className="w-full max-w-[640px] h-[360px] sm:h-[400px] lg:h-[480px] relative overflow-visible flex items-center justify-center mx-auto lg:mx-0 lg:translate-x-6 transition-all duration-500 p-0 bg-transparent border-transparent shadow-none">
             {!isDecrypted ? (
               <div className="absolute inset-0 z-40 flex flex-col items-center justify-center rounded-2xl overflow-hidden bg-transparent">
