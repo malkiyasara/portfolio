@@ -8,6 +8,7 @@ import { toastSuccess, toastError } from "../../utils/toast";
 import type { Variants } from "framer-motion";
 import Lottie from "lottie-react";
 import paperPlaneAnimationData from "../../assets/Paper Plane.json?raw";
+import contactData from "../../data/contact.json";
 
 const paperPlaneAnimation = JSON.parse(paperPlaneAnimationData);
 
@@ -210,9 +211,9 @@ export const Contact: React.FC = () => {
         variants={itemVariants}
       >
         <h2 className="text-3xl md:text-5xl font-extrabold text-white mb-4 tracking-tight">
-          Get In{" "}
+          {contactData.heading[0]}{" "}
           <span className="bg-gradient-to-r from-blue-200 to-blue-400 bg-clip-text text-transparent">
-            Touch
+            {contactData.heading[1]}
           </span>
         </h2>
         <div className="h-1 w-16 bg-gradient-to-r from-blue-200 to-blue-400 mx-auto rounded-full"></div>
@@ -260,47 +261,40 @@ export const Contact: React.FC = () => {
                     Let's Collaborate
                   </h3>
                   <p className="text-gray-300 leading-relaxed mb-8">
-                    Have a project in mind or want to discuss full-stack
-                    architecture? My inbox is always open.
+                    {contactData.description}
                   </p>
 
                   <a
-                    href="mailto:malkiyasaraofficial@gmail.com"
+                    href={contactData.email.href}
                     className="flex items-center gap-4 bg-white/5 p-2 rounded-xl border border-white/5 hover:border-blue-500/30 transition-all duration-300 group/link"
                   >
                     <div className="p-2.5 bg-blue-600/20 text-blue-400 rounded-lg group-hover/link:bg-blue-600 group-hover/link:text-white transition-all">
                       <Mail className="w-5 h-5" />
                     </div>
                     <span className="text-gray-300 text-sm group-hover/link:text-white">
-                      malkiyasaraofficial@gmail.com
+                      {contactData.email.label}
                     </span>
                   </a>
-                  <a
-                    href="https://www.linkedin.com/in/malki-yasara"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center mt-2 gap-4 bg-white/5 p-2 rounded-xl border border-white/5 hover:border-blue-500/30 transition-all duration-300 group/link"
-                  >
-                    <div className="p-2.5 bg-blue-600/20 text-blue-400 rounded-lg group-hover/link:bg-blue-600 group-hover/link:text-white transition-all">
-                      <FaLinkedin className="w-5 h-5" />
-                    </div>
-                    <span className="text-gray-300 text-sm group-hover/link:text-white">
-                      Malki Yasara
-                    </span>
-                  </a>
-                  <a
-                    href="https://www.github.com/malkiyasara"
-                    target="_blank"
-                    rel="noreferrer"
-                    className="flex items-center mt-2 gap-4 bg-white/5 p-2 rounded-xl border border-white/5 hover:border-blue-500/30 transition-all duration-300 group/link"
-                  >
-                    <div className="p-2.5 bg-blue-600/20 text-blue-400 rounded-lg group-hover/link:bg-blue-600 group-hover/link:text-white transition-all">
-                      <FaGithub className="w-5 h-5" />
-                    </div>
-                    <span className="text-gray-300 text-sm group-hover/link:text-white">
-                      Malki Yasara
-                    </span>
-                  </a>
+                  {contactData.social.map((item: any) => {
+                    const IconComponent = item.icon === "FaLinkedin" ? FaLinkedin : FaGithub;
+
+                    return (
+                      <a
+                        key={item.platform}
+                        href={item.href}
+                        target="_blank"
+                        rel="noreferrer"
+                        className="flex items-center mt-2 gap-4 bg-white/5 p-2 rounded-xl border border-white/5 hover:border-blue-500/30 transition-all duration-300 group/link"
+                      >
+                        <div className="p-2.5 bg-blue-600/20 text-blue-400 rounded-lg group-hover/link:bg-blue-600 group-hover/link:text-white transition-all">
+                          <IconComponent className="w-5 h-5" />
+                        </div>
+                        <span className="text-gray-300 text-sm group-hover/link:text-white">
+                          {item.name}
+                        </span>
+                      </a>
+                    );
+                  })}
                 </div>
               </div>
             </div>

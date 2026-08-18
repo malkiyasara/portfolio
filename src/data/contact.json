@@ -1,0 +1,22 @@
+{
+  "heading": ["Get In", "Touch"],
+  "description": "Have a project in mind or want to discuss full-stack architecture? My inbox is always open.",
+  "email": {
+    "label": "malkiyasaraofficial@gmail.com",
+    "href": "mailto:malkiyasaraofficial@gmail.com"
+  },
+  "social": [
+    {
+      "platform": "LinkedIn",
+      "name": "Malki Yasara",
+      "href": "https://www.linkedin.com/in/malki-yasara",
+      "icon": "FaLinkedin"
+    },
+    {
+      "platform": "GitHub",
+      "name": "Malki Yasara",
+      "href": "https://www.github.com/malkiyasara",
+      "icon": "FaGithub"
+    }
+  ]
+}

@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ArrowDown, Lock, Unlock, Bot, Code2 } from "lucide-react";
 import encryptionBgVideo from "../../assets/encryption-bg.webm";
+import heroData from "../../data/hero.json";
 
 interface HeroProps {
   isDecrypted: boolean;
@@ -12,11 +13,7 @@ export const Hero: React.FC<HeroProps> = ({ isDecrypted, setIsDecrypted }) => {
   const [isLocking, setIsLocking] = useState<boolean>(false);
   const [isMobile, setIsMobile] = useState<boolean>(false);
 
-  const roles = [
-    "Full-Stack Developer",
-    "Software Engineer",
-    "UI/UX Innovator",
-  ];
+  const roles = heroData.roles as string[];
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
 
   useEffect(() => {
@@ -63,15 +60,15 @@ export const Hero: React.FC<HeroProps> = ({ isDecrypted, setIsDecrypted }) => {
         <div className="lg:col-span-5 text-center lg:text-left flex flex-col items-center lg:items-start z-20">
           <div className="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl bg-blue-500/5 border border-blue-400/10 text-blue-300 text-xs font-semibold tracking-wide mb-6 backdrop-blur-sm selection:bg-transparent">
             <Code2 className="w-3.5 h-3.5 animate-[spin_4s_linear_infinite]" />{" "}
-            Open To Innovation
+            {heroData.badge}
           </div>
 
           <h1 className="text-4xl md:text-6xl font-extrabold font-display text-white tracking-tight mb-5 leading-tight">
-            Hi, I'm{" "}
+            {heroData.greeting}{" "}
             <span className="bg-gradient-to-r from-blue-200 to-blue-400 bg-clip-text text-transparent drop-shadow-[0_0_20px_rgba(96,165,250,0.4)]">
-              Malki
+              {heroData.name}
             </span>{" "}
-            Yasara
+            {heroData.lastName}
           </h1>
 
           <div className="h-8 mb-4 overflow-hidden relative w-full flex justify-center lg:justify-start">
@@ -91,12 +88,11 @@ export const Hero: React.FC<HeroProps> = ({ isDecrypted, setIsDecrypted }) => {
           </div>
 
           <h2 className="text-lg md:text-xl font-semibold text-blue-100 tracking-wide mb-3">
-            Undergraduate Software Engineer
+            {heroData.subtitle}
           </h2>
 
           <p className="text-gray-400 text-base md:text-lg leading-relaxed mb-0 max-w-lg">
-            Bridging the gap between complex ideas and elegant digital solutions
-            with clean code, modern stacks, and user-first design.
+            {heroData.description}
           </p>
         </div>
 
@@ -137,8 +133,8 @@ export const Hero: React.FC<HeroProps> = ({ isDecrypted, setIsDecrypted }) => {
                 <iframe
                   src={
                     isMobile
-                      ? "https://my.spline.design/genkubgreetingrobot-LzHNF685w65GQSXmOdo5b84o/"
-                      : "https://my.spline.design/genkubgreetingrobot-lxcUEftjNn9o0FlSDkffs3d5/"
+                      ? heroData.splineUrls.mobile
+                      : heroData.splineUrls.desktop
                   }
                   frameBorder="0"
                   className="w-full h-[calc(100%+60px)] select-none pointer-events-auto bg-transparent absolute top-0 left-0 z-10"
@@ -179,7 +175,7 @@ export const Hero: React.FC<HeroProps> = ({ isDecrypted, setIsDecrypted }) => {
         className="absolute bottom-10 lg:bottom-15 left-1/2 transform -translate-x-1/2 flex flex-col items-center text-gray-400 hover:text-blue-400 transition-colors duration-300 group cursor-pointer hidden sm:flex z-50"
       >
         <span className="text-xs font-medium uppercase tracking-widest mb-1 opacity-0 group-hover:opacity-100 transition-opacity">
-          Next
+          {heroData.cta}
         </span>
         <div className="relative flex items-center justify-center p-2 rounded-full border border-gray-700/50 group-hover:border-blue-500/50 bg-black/20 backdrop-blur-sm animate-bounce">
           <ArrowDown className="w-5 h-5" />

@@ -3,6 +3,7 @@ import { motion } from "framer-motion";
 import Tilt from "react-parallax-tilt";
 import IconCloud from "./IconCloud";
 import { Constellation } from "./Constellation";
+import skillData from "../../data/skills.json";
 import {
   SiReact,
   SiJavascript,
@@ -24,128 +25,41 @@ import {
   SiPostman,
 } from "react-icons/si";
 
-const slugs = [
-  "typescript",
-  "javascript",
-  "react",
-  "nodedotjs",
-  "express",
-  "github",
-  "postman",
-  "springboot",
-  "mongodb",
-  "mysql",
-  "tailwindcss",
-  "docker",
-  "jest",
-  "expo",
-  "vercel",
-  "railway",
-  "html5",
-  "css3",
-  "jira",
-  "figma",
-  "intellijidea",
-  "vite",
-  "git",
-  "virtualbox",
-  "jupyter",
-  "python",
-];
+const iconMap = {
+  SiReact,
+  SiJavascript,
+  SiTypescript,
+  SiHtml5,
+  SiNodedotjs,
+  SiExpress,
+  SiMongodb,
+  SiMysql,
+  SiSpringboot,
+  SiTailwindcss,
+  SiDocker,
+  SiVercel,
+  SiRailway,
+  SiFigma,
+  SiGithub,
+  SiGit,
+  SiJira,
+  SiPostman,
+} as const;
 
-const skillGroups = {
-  Frontend: [
-    {
-      name: "React",
-      icon: <SiReact color="#61DAFB" size={22} />,
-    },
-    {
-      name: "JavaScript",
-      icon: <SiJavascript color="#F7DF1E" size={22} />,
-    },
-    {
-      name: "TypeScript",
-      icon: <SiTypescript color="#3178C6" size={22} />,
-    },
-    {
-      name: "HTML5",
-      icon: <SiHtml5 color="#E34F26" size={22} />,
-    },
+const slugs = skillData.slugs as string[];
 
-    {
-      name: "Tailwind CSS",
-      icon: <SiTailwindcss color="#06B6D4" size={22} />,
-    },
-  ],
-
-  Backend: [
-    {
-      name: "Node.js",
-      icon: <SiNodedotjs color="#339933" size={22} />,
-    },
-    {
-      name: "Express",
-      icon: <SiExpress color="#FFFFFF" size={22} />,
-    },
-    {
-      name: "Spring Boot",
-      icon: <SiSpringboot color="#6DB33F" size={22} />,
-    },
-    {
-      name: "MongoDB",
-      icon: <SiMongodb color="#47A248" size={22} />,
-    },
-    {
-      name: "MySQL",
-      icon: <SiMysql color="#4479A1" size={22} />,
-    },
-  ],
-
-  "UI / UX": [
-    {
-      name: "Figma",
-      icon: <SiFigma color="#F24E1E" size={22} />,
-    },
-    {
-      name: "Responsive UI",
-      icon: <SiTailwindcss color="#06B6D4" size={22} />,
-    },
-  ],
-
-  Cloud: [
-    {
-      name: "Docker",
-      icon: <SiDocker color="#2496ED" size={22} />,
-    },
-    {
-      name: "Vercel",
-      icon: <SiVercel color="#FFFFFF" size={22} />,
-    },
-    {
-      name: "Railway",
-      icon: <SiRailway color="#7B4DFF" size={22} />,
-    },
-  ],
-
-  Tools: [
-    {
-      name: "GitHub",
-      icon: <SiGithub color="#FFFFFF" size={22} />,
-    },
-    {
-      name: "Git",
-      icon: <SiGit color="#F05032" size={22} />,
-    },
-    {
-      name: "Jira",
-      icon: <SiJira color="#0052CC" size={22} />,
-    },
-    {
-      name: "Postman",
-      icon: <SiPostman color="#FF6C37" size={22} />,
-    },
-  ],
-};
+const skillGroups = Object.fromEntries(
+  Object.entries(skillData.skillGroups as Record<string, Array<{ name: string; icon: string; color: string }>>).map(([groupName, items]) => [
+    groupName,
+    items.map((item) => ({
+      ...item,
+      icon: React.createElement(iconMap[item.icon as keyof typeof iconMap], {
+        color: item.color,
+        size: 22,
+      }),
+    })),
+  ]),
+) as Record<string, Array<{ name: string; icon: React.ReactNode }>>;
 
 type SkillCardProps = {
   title: string;

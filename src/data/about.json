@@ -1,0 +1,30 @@
+{
+  "heading": ["About", "Me"],
+  "intro": {
+    "tag": "Who Am I",
+    "paragraphs": [
+      "I am a Software Engineering undergraduate passionate about building modern, scalable, and user-centered software solutions. I specialize in exploring full-stack and mobile development, combining strong problem-solving skills with clean architecture and thoughtful user experiences.",
+      "I enjoy transforming ideas into functional digital products through efficient coding practices, continuous learning, and the use of emerging technologies. I am driven by curiosity, innovation, and the goal of creating software that delivers meaningful real-world impact."
+    ]
+  },
+  "cards": [
+    {
+      "title": "Goals",
+      "icon": "Target",
+      "content": "To grow as a professional software engineer by developing high-quality, scalable applications, contributing to innovative projects, and creating technology-driven solutions that improve everyday experiences."
+    },
+    {
+      "title": "Education",
+      "icon": "GraduationCap",
+      "period": "2024 - Present",
+      "institution": "Sri Lanka Institute of Information Technology (SLIIT)",
+      "program": "BSc (Hons) in Information Technology Specializing in Software Engineering."
+    },
+    {
+      "title": "Technical Focus",
+      "icon": "Code2",
+      "label": "Full-Stack & Mobile Development",
+      "content": "Building responsive web interfaces and cross-platform mobile apps. Focused on modular architectures, backend API design, relational/non-relational database design, and structured state management."
+    }
+  ]
+}

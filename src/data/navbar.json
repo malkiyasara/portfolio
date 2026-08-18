@@ -1,0 +1,7 @@
+[
+  { "label": "Home", "href": "#home", "icon": "Home" },
+  { "label": "About", "href": "#about", "icon": "User2" },
+  { "label": "Skills", "href": "#skills", "icon": "Terminal" },
+  { "label": "Projects", "href": "#projects", "icon": "Briefcase" },
+  { "label": "Contact", "href": "#contact", "icon": "Compass" }
+]

@@ -1,0 +1,18 @@
+{
+  "badge": "Open To Innovation",
+  "greeting": "Hi, I'm",
+  "name": "Malki",
+  "lastName": "Yasara",
+  "roles": [
+    "Full-Stack Developer",
+    "Software Engineer",
+    "UI/UX Innovator"
+  ],
+  "subtitle": "Undergraduate Software Engineer",
+  "description": "Bridging the gap between complex ideas and elegant digital solutions with clean code, modern stacks, and user-first design.",
+  "cta": "Next",
+  "splineUrls": {
+    "mobile": "https://my.spline.design/genkubgreetingrobot-LzHNF685w65GQSXmOdo5b84o/",
+    "desktop": "https://my.spline.design/genkubgreetingrobot-lxcUEftjNn9o0FlSDkffs3d5/"
+  }
+}

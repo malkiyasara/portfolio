@@ -10,14 +10,20 @@ import {
   Star,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
+import navbarData from "../../data/navbar.json";
 
-const links = [
-  { label: "Home", href: "#home", icon: Home },
-  { label: "About", href: "#about", icon: User2 },
-  { label: "Skills", href: "#skills", icon: Terminal },
-  { label: "Projects", href: "#projects", icon: Briefcase },
-  { label: "Contact", href: "#contact", icon: Compass },
-];
+const iconMap = {
+  Home,
+  User2,
+  Terminal,
+  Briefcase,
+  Compass,
+} as const;
+
+const links = (navbarData as Array<{ label: string; href: string; icon: keyof typeof iconMap }>).map((link) => ({
+  ...link,
+  icon: iconMap[link.icon],
+}));
 
 export const Navbar: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
